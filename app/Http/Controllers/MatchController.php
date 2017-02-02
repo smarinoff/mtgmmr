@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Match;
+use Session;
 
 class MatchController extends Controller
 {
@@ -13,7 +15,7 @@ class MatchController extends Controller
      */
     public function index()
     {
-        //
+        return view('match.index', ['matches' => Match::all()]);
     }
 
     /**

@@ -19,18 +19,36 @@
     <div class="ui inverted vertical center aligned segment">
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-          <a class="toc item">
-            <i class="sidebar icon"></i>
-          </a>
+
           <a class="item" href="/">Home</a>
+          <a class="item" href="{{action('DeckController@index')}}">Decks</a>
+          <a class="item" href="{{action('MatchController@index')}}">Matches</a>
+
           <div class="right item">
             @if(!Auth::check())
               <a class="ui inverted button" href="{{action('Auth\LoginController@showLoginForm')}}">Log In</a>
               <a class="ui inverted button" href="{{action('Auth\RegisterController@showRegistrationForm')}}">Sign Up</a>
             @else
-              <a class="ui inverted button" href="{{action('Auth\LoginController@logout')}}">Logout</a>
+              <div class="ui simple dropdown item">
+                My Account
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item">Profile</div>
+                  <div class="item">
+                    <i class="dropdown icon"></i>
+                    Decks
+                    <div class="menu">
+                      <a class="item" href="{{action('DeckController@userDecks', ['user' => Auth::user()])}}">My Decks</a>
+                      <a class="item" href="{{action('DeckController@create')}}">Add New</a>
+                    </div>
+                  </div>
+                  <div class="item">Matches</div>
+                  <a class="item" href="{{action('Auth\LoginController@logout')}}">Logout</a>
+                </div>
+              </div>
             @endif
           </div>
+
         </div>
       </div>
     </div>

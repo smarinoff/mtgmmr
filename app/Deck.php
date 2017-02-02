@@ -42,4 +42,14 @@ class Deck extends Model
     {
     	return $this->belongsToMany('App\Match');
     }
+
+    /**
+     * The user this deck belongs to
+     *
+     * @return array
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

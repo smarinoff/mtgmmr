@@ -23,6 +23,7 @@ elixir((mix) => {
 	    ])
 		.sass('app.scss')
 		.webpack([
+			'jquery.js',
 			'app.js',
 			'semantic.min.js',
 		]);

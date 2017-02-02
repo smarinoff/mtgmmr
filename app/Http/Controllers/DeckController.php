@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Deck;
+use App\User;
+use App\DeckFormat as Format;
+use App\Colour;
+use Session;
+use \Auth;
 
 class DeckController extends Controller
 {
@@ -13,7 +19,21 @@ class DeckController extends Controller
      */
     public function index()
     {
-        //
+        return view('deck.index', ['decks' => Deck::all()]);
+    }
+
+    /**
+     * Display a listing of the resources belonging to the authenticated user
+     */
+    public function userDecks(User $user)
+    {
+        if ( !$user ) {
+            $user = Auth::user();
+        }
+
+        if ($user) {
+            return view('deck.index', ['decks' => $user->decks]);
+        }
     }
 
     /**
@@ -23,7 +43,7 @@ class DeckController extends Controller
      */
     public function create()
     {
-        //
+        return view('deck.create', ['colours' => Colour::all(), 'formats' => Format::all()]);
     }
 
     /**
@@ -34,7 +54,15 @@ class DeckController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $deck = new Deck($request->all());
+        $deck->user_id = Auth::user()->id;
+        $deck->save();
+
+        $deck->colours()->sync($request->input('colour_id'));
+
+        Session::flash('flash_message', 'Deck successfully created!');
+
+        return redirect(action('DeckController@show', ['id' => $deck->id]));
     }
 
     /**
@@ -45,7 +73,9 @@ class DeckController extends Controller
      */
     public function show($id)
     {
-        //
+        $deck = Deck::with('colours', 'format', 'user')->where('id', $id)->first();
+
+        return view('deck.show', ['deck' => $deck]);
     }
 
     /**
