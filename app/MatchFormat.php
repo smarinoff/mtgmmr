@@ -18,7 +18,7 @@ class MatchFormat extends Model
      *
      * @var string
      */
-    protected $table = 'deck_format';
+    protected $table = 'match_formats';
 
     /**
      * The matches of this format

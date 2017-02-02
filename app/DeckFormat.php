@@ -18,7 +18,7 @@ class DeckFormat extends Model
      *
      * @var string
      */
-    protected $table = 'deck_format';
+    protected $table = 'deck_formats';
 
     /**
      * The decks using this format
