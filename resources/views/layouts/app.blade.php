@@ -43,6 +43,7 @@
                         <a class="item" href="{{action('DeckController@create')}}">Add New</a>
                       </div>
                     </div>
+                    <a class="item" href="{{action('Auth\LoginController@logout')}}">Logout</a>
                   </div>
                 </div>
               </div>
