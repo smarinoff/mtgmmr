@@ -6,11 +6,17 @@
 
 	<div class="row center aligned">
 		<div class="column">
+
 			<div class="ui segment">
+
 				@if(Auth::check() && Auth::user()->id == $deck->user->id)
-					<div class="ui buttons right floated">
-						<a class="ui button">Edit</a>
-						<a class="ui button">Delete</a>
+					<div class="ui right floated buttons">
+						<a class="ui icon button" href="{{action('DeckController@edit', ['id' => $deck->id])}}"><i class="edit icon"></i></a>
+						<form method="post" action="{{action('DeckController@destroy', ['id' => $deck->id])}}">
+							{{ method_field('DELETE') }}
+							{{ csrf_field() }}
+							<button class="ui icon button" href="{{action('DeckController@destroy', ['id' => $deck->id])}}"><i class="remove circle icon"></i></button>
+						</form>
 					</div>
 				@endif
 

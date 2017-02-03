@@ -43,7 +43,7 @@ class DeckController extends Controller
      */
     public function create()
     {
-        return view('deck.create', ['colours' => Colour::all(), 'formats' => Format::all()]);
+        return view('deck.create', ['deck' => (new Deck), 'colours' => Colour::all(), 'formats' => Format::all()]);
     }
 
     /**
@@ -86,7 +86,9 @@ class DeckController extends Controller
      */
     public function edit($id)
     {
-        //
+        $deck = Deck::with('colours', 'format')->where('id', $id)->first();
+
+        return view('deck.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
     }
 
     /**
@@ -96,9 +98,16 @@ class DeckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Deck $deck)
     {
-        //
+        $deck->update($request->all());
+        $deck->save();
+
+        $deck->colours()->sync($request->input('colour_id'));
+
+        Session::flash('flash_message', 'Deck successfully edited!');
+
+        return redirect(action('DeckController@show', ['id' => $deck->id]));
     }
 
     /**
@@ -107,8 +116,12 @@ class DeckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Deck $deck)
     {
-        //
+        $deck->delete();
+
+        Session::flash('flash_message', 'Deck successfully deleted!');
+
+        return redirect(action('DeckController@userDecks', ['user' => Auth::user()]));
     }
 }

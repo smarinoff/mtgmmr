@@ -7,14 +7,17 @@
 	<div class="row">
 		<div class="column">
 			<h1 class="ui header">
-				Create a Deck
+				Edit Your Deck
 			</h1>
-			<form class="ui form" role="form" method="POST" action="{{action('DeckController@store')}}">
+			<form class="ui form" role="form" method="POST" action="{{action('DeckController@update', ['id' => $deck->id])}}">
+
 		        @include('deck.form')
+
+		        {{ method_field('PUT') }}
 
 		        <div class="ui field">
 				    <button type="submit" class="ui button primary">
-				        Create Deck
+				        Save Deck
 				    </button>
 				</div>
 		    </form>
