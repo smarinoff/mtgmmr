@@ -13,7 +13,9 @@
 				<p>Check out all these sweet decks.</p>
 			</div>
 			<div class="container">
-				@if( !empty($decks))
+				@if($decks->isEmpty())
+					<p>Sorry, couldn't find any decks.</p>
+				@else
 					<div class="ui four cards">
 						@foreach($decks as $deck)
 							<div class="ui card">
@@ -28,8 +30,6 @@
 							</div>
 						@endforeach
 					</div>
-				@else
-					<p>Sorry, couldn't find any decks.</p>
 				@endif
 			</div>
 		</div>
