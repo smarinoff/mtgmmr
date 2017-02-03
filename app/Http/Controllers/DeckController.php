@@ -71,10 +71,8 @@ class DeckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Deck $deck)
     {
-        $deck = Deck::with('colours', 'format', 'user')->where('id', $id)->first();
-
         return view('deck.show', ['deck' => $deck]);
     }
 
@@ -84,10 +82,8 @@ class DeckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Deck $deck)
     {
-        $deck = Deck::with('colours', 'format')->where('id', $id)->first();
-
         return view('deck.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
     }
 

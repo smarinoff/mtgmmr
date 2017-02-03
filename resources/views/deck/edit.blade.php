@@ -35,7 +35,7 @@
 
 				<div class="ui field">
 				    <label for="format_id">Format</label>
-				    <select id="format_id" name="format_id" required class="ui fluid search dropdown">
+				    <select id="format_id" name="format_id" required class="ui fluid dropdown">
 				    	@foreach ($formats as $format)
 				    		{{ $selected = ( old('format_id', $deck->format->id) == $format->id ) ? ' selected="selected"' : '' }}
 				    		<option value="{{$format->id}}"{{$selected}}>{{$format->name}}</option>
@@ -46,7 +46,7 @@
 
 				<div class="ui field">
 				    <label for="colour_id">Colour(s)</label>
-				    <select id="colour_id" name="colour_id[]" required multiple="" class="ui fluid search dropdown">
+				    <select id="colour_id" name="colour_id[]" required multiple="" class="ui fluid dropdown">
 				    	@foreach ($colours as $colour)
 				    		{{ $selected = ( in_array($colour->id, old('colour_id[]', $deck->colours->pluck('id')->all()))) ? ' selected="selected"' : 'data-test="fake"' }}
 

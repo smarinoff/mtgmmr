@@ -26,14 +26,14 @@
 				    </div>
 				</div>
 
-				<div class="ui field">
+				<div class="field">
 				    <label for="description">Description</label>
 				        <textarea id="description" name="description" rows="2">{{ old('description', $deck->description) }}</textarea>
 				</div>
 
-				<div class="ui field">
+				<div class="field">
 				    <label for="format_id">Format</label>
-				    <select id="format_id" name="format_id" required class="ui fluid search dropdown">
+				    <select id="format_id" name="format_id" required class="ui fluid dropdown">
 				    	@foreach ($formats as $format)
 				    		{{ $selected = ( old('format_id') == $format->id ) ? ' selected="selected"' : '' }}
 				    		<option value="{{$format->id}}"{{$selected}}>{{$format->name}}</option>
@@ -42,9 +42,9 @@
 				    </select>
 				</div>
 
-				<div class="ui field">
+				<div class="field">
 				    <label for="colour_id">Colour(s)</label>
-				    <select id="colour_id" name="colour_id[]" required multiple="" class="ui fluid search dropdown">
+				    <select id="colour_id" name="colour_id[]" required multiple="" class="ui fluid dropdown">
 				    	@foreach ($colours as $colour)
 				    		{{ $selected = ( !empty( old('colour_id[]') ) && in_array($colour->id, old('colour_id[]'))) ? ' selected="selected"' : 'data-test="fake"' }}
 

@@ -26,24 +26,24 @@
 
           <div class="right item">
             @if(!Auth::check())
-              <a class="ui inverted button" href="{{action('Auth\LoginController@showLoginForm')}}">Log In</a>
-              <a class="ui inverted button" href="{{action('Auth\RegisterController@showRegistrationForm')}}">Sign Up</a>
+              <a class="ui inverted item" href="{{action('Auth\LoginController@showLoginForm')}}">Log In</a>
+              <a class="ui inverted item" href="{{action('Auth\RegisterController@showRegistrationForm')}}">Sign Up</a>
             @else
-              <div class="ui simple dropdown item">
-                My Account
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                  <div class="item">Profile</div>
-                  <div class="item">
-                    <i class="dropdown icon"></i>
-                    Decks
-                    <div class="menu">
-                      <a class="item" href="{{action('DeckController@userDecks', ['user' => Auth::user()])}}">My Decks</a>
-                      <a class="item" href="{{action('DeckController@create')}}">Add New</a>
+              <div class="ui compact inverted menu">
+                <div class="ui dropdown item">
+                  <span class="text">My Account</span>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <a class="item" href="#">Profile</a>
+                    <div class="item">
+                      <i class="dropdown icon"></i>
+                      <span class="text">Decks</span>
+                      <div class="menu">
+                        <a class="item" href="{{action('DeckController@userDecks', ['user' => Auth::user()])}}">My Decks</a>
+                        <a class="item" href="{{action('DeckController@create')}}">Add New</a>
+                      </div>
                     </div>
                   </div>
-                  <div class="item">Matches</div>
-                  <a class="item" href="{{action('Auth\LoginController@logout')}}">Logout</a>
                 </div>
               </div>
             @endif
