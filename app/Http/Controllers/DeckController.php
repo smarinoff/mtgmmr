@@ -13,6 +13,14 @@ use \Auth;
 class DeckController extends Controller
 {
     /**
+     * Instantiate a new DeckController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -25,15 +33,9 @@ class DeckController extends Controller
     /**
      * Display a listing of the resources belonging to the authenticated user
      */
-    public function userDecks(User $user)
+    public function userDecks(User $user = null)
     {
-        if ( !$user ) {
-            $user = Auth::user();
-        }
-
-        if ($user) {
-            return view('deck.index', ['decks' => $user->decks]);
-        }
+        return view('deck.index', ['decks' => $user->decks]);
     }
 
     /**
@@ -96,12 +98,18 @@ class DeckController extends Controller
      */
     public function update(Request $request, Deck $deck)
     {
-        $deck->update($request->all());
-        $deck->save();
+        //Only allow the user who created the deck to update it
+        if ( Auth::user()->id == $deck->user_id ) {
 
-        $deck->colours()->sync($request->input('colour_id'));
+            //Update the deck
+            $deck->update($request->all());
+            $deck->save();
 
-        Session::flash('flash_message', 'Deck successfully edited!');
+            //Sync the colour pivot
+            $deck->colours()->sync($request->input('colour_id'));
+
+            Session::flash('flash_message', 'Deck successfully edited!');
+        }
 
         return redirect(action('DeckController@show', ['id' => $deck->id]));
     }
