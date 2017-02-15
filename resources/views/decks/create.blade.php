@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Decks')
+@section('title', 'Create a Deck')
 
 @section('content')
 
@@ -46,7 +46,7 @@
 				    <label for="colour_id">Colour(s)</label>
 				    <select id="colour_id" name="colour_id[]" required multiple="" class="ui fluid dropdown">
 				    	@foreach ($colours as $colour)
-				    		{{ $selected = ( !empty( old('colour_id[]') ) && in_array($colour->id, old('colour_id[]'))) ? ' selected="selected"' : 'data-test="fake"' }}
+				    		{{ $selected = ( !empty( old('colour_id[]') ) && in_array($colour->id, old('colour_id[]'))) ? ' selected="selected"' : '' }}
 
 				    		<option value="{{$colour->id}}"{{$selected}}>{{$colour->name}}</option>
 				    	@endforeach

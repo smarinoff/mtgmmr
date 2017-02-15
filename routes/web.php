@@ -22,3 +22,4 @@ Route::resource('decks', 'DeckController');
 Route::get('/user/{user}/decks', 'DeckController@userDecks');
 
 Route::resource('matches', 'MatchController');
+Route::get('/user/{user}/matches', 'MatchController@userMatches');

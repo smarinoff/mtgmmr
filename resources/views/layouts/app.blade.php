@@ -43,6 +43,14 @@
                         <a class="item" href="{{action('DeckController@create')}}">Add New</a>
                       </div>
                     </div>
+                    <div class="item">
+                      <i class="dropdown icon"></i>
+                      <span class="text">Matches</span>
+                      <div class="menu">
+                        <a class="item" href="{{action('MatchController@userMatches', ['user' => Auth::user()])}}">My Matches</a>
+                        <a class="item" href="{{action('MatchController@create')}}">Add New</a>
+                      </div>
+                    </div>
                     <a class="item" href="{{action('Auth\LoginController@logout')}}">Logout</a>
                   </div>
                 </div>

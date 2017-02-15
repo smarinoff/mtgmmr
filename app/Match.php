@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['format_id'];
+
 	/**
      * The format of this match
      *

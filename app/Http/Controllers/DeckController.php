@@ -27,7 +27,7 @@ class DeckController extends Controller
      */
     public function index()
     {
-        return view('deck.index', ['decks' => Deck::all()]);
+        return view('decks.index', ['decks' => Deck::all()]);
     }
 
     /**
@@ -35,7 +35,7 @@ class DeckController extends Controller
      */
     public function userDecks(User $user = null)
     {
-        return view('deck.index', ['decks' => $user->decks]);
+        return view('decks.index', ['decks' => $user->decks]);
     }
 
     /**
@@ -45,7 +45,7 @@ class DeckController extends Controller
      */
     public function create()
     {
-        return view('deck.create', ['deck' => (new Deck), 'colours' => Colour::all(), 'formats' => Format::all()]);
+        return view('decks.create', ['deck' => (new Deck), 'colours' => Colour::all(), 'formats' => Format::all()]);
     }
 
     /**
@@ -76,7 +76,7 @@ class DeckController extends Controller
      */
     public function show(Deck $deck)
     {
-        return view('deck.show', ['deck' => $deck]);
+        return view('decks.show', ['deck' => $deck]);
     }
 
     /**
@@ -88,7 +88,7 @@ class DeckController extends Controller
     public function edit(Deck $deck)
     {
         if ( Auth::user()->id == $deck->user_id ) {
-            return view('deck.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
+            return view('decks.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
         } else {
             //Indicate the user doesn't have permission
             Session::flash('message', 'You do not have permission to edit this deck.');
@@ -119,6 +119,9 @@ class DeckController extends Controller
 
             Session::flash('message', 'Your "'.$deck->name.'" deck was successfully edited!');
             Session::flash('type', 'positive');
+        } else {
+            Session::flash('message', 'You do not have permission to edit this deck.');
+            Session::flash('type', 'error');
         }
 
         return redirect(action('DeckController@show', ['id' => $deck->id]));
