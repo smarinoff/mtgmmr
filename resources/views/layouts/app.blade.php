@@ -56,6 +56,17 @@
 
     <!-- Page Contents -->
   <div class="ui grid container main">
+
+    @if(Session::has('message'))
+      <div class="center aligned row">
+        <div class="column">
+          <div class="ui message {{Session::get('type')}}">
+            {{Session::get('message')}}
+          </div>
+        </div>
+      </div>
+    @endif
+
     @yield('content')  
   </div>
 </div>

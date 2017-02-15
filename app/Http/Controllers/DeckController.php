@@ -17,7 +17,7 @@ class DeckController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'userDecks', 'show']]);
     }
 
     /**
@@ -62,7 +62,8 @@ class DeckController extends Controller
 
         $deck->colours()->sync($request->input('colour_id'));
 
-        Session::flash('flash_message', 'Deck successfully created!');
+        Session::flash('message', 'Your new '.$deck->name.' deck successfully created!');
+        Session::flash('type', 'positive');
 
         return redirect(action('DeckController@show', ['id' => $deck->id]));
     }
@@ -86,7 +87,15 @@ class DeckController extends Controller
      */
     public function edit(Deck $deck)
     {
-        return view('deck.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
+        if ( Auth::user()->id == $deck->user_id ) {
+            return view('deck.edit', ['deck' => $deck, 'colours' => Colour::all(), 'formats' => Format::all()]);
+        } else {
+            //Indicate the user doesn't have permission
+            Session::flash('message', 'You do not have permission to edit this deck.');
+            Session::flash('type', 'error');
+
+            return redirect(action('DeckController@show', ['id' => $deck->id]));
+        }
     }
 
     /**
@@ -108,7 +117,8 @@ class DeckController extends Controller
             //Sync the colour pivot
             $deck->colours()->sync($request->input('colour_id'));
 
-            Session::flash('flash_message', 'Deck successfully edited!');
+            Session::flash('message', 'Your "'.$deck->name.'" deck was successfully edited!');
+            Session::flash('type', 'positive');
         }
 
         return redirect(action('DeckController@show', ['id' => $deck->id]));
@@ -124,7 +134,8 @@ class DeckController extends Controller
     {
         $deck->delete();
 
-        Session::flash('flash_message', 'Deck successfully deleted!');
+        Session::flash('message', 'Deck successfully deleted!');
+        Session::flash('type', 'positive');
 
         return redirect(action('DeckController@userDecks', ['user' => Auth::user()]));
     }
