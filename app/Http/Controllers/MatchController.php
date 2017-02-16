@@ -36,9 +36,9 @@ class MatchController extends Controller
      */
     public function userMatches(User $user = null)
     {
-        dd($user->decks()->matches());
+        dd($user->decks);
 
-        return view('matches.index', ['decks' => $user->decks]);
+        return view('matches.index', ['matches' => $user->decks]);
     }
 
     /**
@@ -62,7 +62,22 @@ class MatchController extends Controller
         $match = new Match($request->all());
         $match->save();
 
-        $match->decks()->sync($request->input('deck_id'));
+        //Prepare the pivot data
+        $deck_match_data = array();
+
+        foreach( $request->input('deck_id') as $key => $deck_id ) {
+
+            //Get the Deck instance
+            $deck = Deck::find($deck_id);
+
+            if ( in_array( $deck->user->id, $request->input('winner_id') ) ) {
+                $deck_match_data[$deck_id] = array( 'winner' => 1 );
+            } else {
+                $deck_match_data[$deck_id] = array( 'winner' => 0 );
+            }
+        }
+
+        $match->decks()->sync($deck_match_data);
 
         Session::flash('message', 'Your match was successfully saved!');
         Session::flash('type', 'positive');

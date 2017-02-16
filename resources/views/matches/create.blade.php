@@ -47,6 +47,17 @@
 					</div>
 				@endforeach
 
+				<div class="field">
+				    <label for="winner_id">Winner(s)</label>
+				    <select id="winner_id" name="winner_id[]" required multiple="" class="ui fluid dropdown">
+				    	@foreach ($users as $user)
+				    		{{ $selected = ( !empty( old('winner_id[]') ) && in_array($user->id, old('winner_id[]'))) ? ' selected="selected"' : '' }}
+
+				    		<option value="{{$user->id}}"{{$selected}}>{{$user->name}}</option>
+				    	@endforeach
+				    </select>
+				</div>
+
 		        <div class="ui field">
 				    <button type="submit" class="ui button primary">
 				        Create Match

@@ -11,6 +11,13 @@
 					Browse Matches
 				</h1>
 			</div>
+			<div class="container">
+				@if($matches->isEmpty())
+					<p>Sorry, couldn't find any matches.</p>
+				@else
+					<p>Test</p>
+				@endif
+			</div>
 		</div>
 	</div>
 

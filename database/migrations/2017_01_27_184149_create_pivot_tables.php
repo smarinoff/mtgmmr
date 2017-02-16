@@ -24,7 +24,7 @@ class CreatePivotTables extends Migration
         Schema::create('deck_match', function (Blueprint $table) {
             $table->integer('deck_id')->unsigned();
             $table->integer('match_id')->unsigned();
-            $table->integer('winner')->unsigned();
+            $table->integer('winner')->unsigned()->default(0);
 
             $table->foreign('deck_id')->references('id')->on('decks')->onDelete('cascade');
             $table->foreign('match_id')->references('id')->on('matches')->onDelete('cascade');
