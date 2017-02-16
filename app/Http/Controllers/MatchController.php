@@ -93,7 +93,7 @@ class MatchController extends Controller
      */
     public function show(Match $match)
     {
-        return view('matches.show', ['match' => $match]);
+        return view('matches.show', ['match' => $match, 'decks' => $match->decks]);
     }
 
     /**
