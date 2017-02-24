@@ -26,5 +26,6 @@ elixir((mix) => {
 			'jquery.js',
 			'app.js',
 			'semantic.min.js',
+			'tablesort.js',
 		]);
 });

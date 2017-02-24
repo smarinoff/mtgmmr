@@ -14,7 +14,7 @@
 				</h1>
 				<div class="ui grid">
 					<div class="eight wide column">
-						<p>Created at: {{date('F j, Y', strtotime($match->created_at))}}</p>
+						<p>Created on: {{date('F j, Y', strtotime($match->created_at))}}</p>
 					</div>
 					<div class="eight wide column">
 						<p>Format: {{$match->format->name}}</p>
@@ -31,8 +31,14 @@
 							<div class="ui card">
 								<div class="content">
 									<h3 class="ui dividing header">
-										<a href="#">{{$deck->user->name}}</a>'s <a href="{{action('DeckController@show', ['id' => $deck->id])}}">{{$deck->name}}</a>
+										<a href="#">{{$deck->user->name}}</a>
+										@if( $deck->pivot->winner == 1 )
+											&nbsp;(Winner)
+										@endif
 									</h3>
+									<h4>
+										<a href="{{action('DeckController@show', ['id' => $deck->id])}}">{{$deck->name}}</a>
+									</h4>
 									@if (!empty( $deck->description ) )
 										<p>{{$deck->description}}</p>
 									@endif

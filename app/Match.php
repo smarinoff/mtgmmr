@@ -30,6 +30,6 @@ class Match extends Model
      */
     public function decks()
     {
-    	return $this->belongsToMany('App\Deck');
+    	return $this->belongsToMany('App\Deck')->withPivot('winner', 'winner');
     }
 }

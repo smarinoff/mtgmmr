@@ -26,6 +26,9 @@ jQuery( function( $ ) {
 	//Init the dropdowns
 	$('.ui.dropdown').dropdown();
 
+	//Sort the tables
+	$('.ui.sortable.table').tablesort();
+
 	//Hide hidden elements
 	$('.hidden').hide();
 
