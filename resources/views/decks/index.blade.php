@@ -8,7 +8,7 @@
 		<div class="column">
 			<div class="ui message">
 				<h1 class="ui header">
-					Browse Decks
+					Browse @if(isset($user)) {{$user->name}}'s @endif Decks
 				</h1>
 				<p>Check out all these sweet decks.</p>
 			</div>

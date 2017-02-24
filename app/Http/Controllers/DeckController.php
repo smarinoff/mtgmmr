@@ -35,7 +35,7 @@ class DeckController extends Controller
      */
     public function userDecks(User $user = null)
     {
-        return view('decks.index', ['decks' => $user->decks]);
+        return view('decks.index', ['decks' => $user->decks, 'user' => $user]);
     }
 
     /**

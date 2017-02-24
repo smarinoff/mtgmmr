@@ -28,7 +28,9 @@ class MatchController extends Controller
      */
     public function index()
     {
-        return view('matches.index', ['matches' => Match::all()]);
+        $matches = Match::orderBy('created_at', 'desc')->get();
+
+        return view('matches.index', ['matches' => $matches]);
     }
 
     /**
@@ -36,9 +38,13 @@ class MatchController extends Controller
      */
     public function userMatches(User $user = null)
     {
-        dd($user->decks);
+        $matches = collect( array() );
 
-        return view('matches.index', ['matches' => $user->decks]);
+        $user->load(['decks.matches' => function($query) use (&$matches) {
+            $matches = $query->orderBy('created_at', 'desc')->get();
+        }]);
+
+        return view('matches.index', ['matches' => $matches, 'user' => $user]);
     }
 
     /**

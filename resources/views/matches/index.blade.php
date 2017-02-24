@@ -8,7 +8,7 @@
 		<div class="column">
 			<div class="ui message">
 				<h1 class="ui header">
-					Browse Matches
+					Browse @if(isset($user)) {{$user->name}}'s @endif Matches
 				</h1>
 			</div>
 			<div class="container">
@@ -37,13 +37,13 @@
 								<td>
 									@foreach($match->decks as $deck)
 										@if($deck->pivot->winner == 1)
-											{{$deck->user->name}},
+											{{$deck->user->name}}
 										@endif
 									@endforeach
 								</td>
 								<td>
 									@foreach($match->decks as $deck)
-										{{$deck->user->name}},
+										{{$deck->user->name}}@if(!$loop->last), @endif
 									@endforeach
 								</td>
 								<td>
